@@ -1,43 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
+import { Drawer, Summary } from "@churchofjesuschrist/eden-drawer";
+import ClickOpen from "./ClickOpen";
+import SubscriptionList from "./SubscriptionList";
 
-const Active = ({ showSubscription, title = "Active" }) => {
+const Active = ({ title, data, filterType }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <div>
+    <div className="">
       <div>
-        <h3>{title}</h3>
-        <p>
-          _____________________________________________________________________________________________________________
-        </p>
-        <div className="flex flex-row">
-          <div class="basis-1/4">Liahona</div>
-          <div class="basis-1/4">Expires</div>
-          <div class="basis-1/4">Renew Unsubscribe</div>
-        </div>
-        <div className="flex flex-row">
-          <div class="basis-1/4">English</div>
-          <div class="basis-1/4">Dec,2023</div>
-        </div>
-      </div>
+        <Drawer>
+          <Summary>
+            <h3>{title}</h3>
+          </Summary>
 
-      <br></br>
-      {showSubscription && (
-        <div>
-          <div className="flex flex-row">
-            <div class="basis-1/4">Liahona</div>
-            <div class="basis-1/4">Expires</div>
-            <div class="basis-1/4">Renew Unsubscribe</div>
+          <Divider inset />
+          <SubscriptionList subscriptions={data} filterType={filterType} />
+
+          <div>
+            {ClickOpen && (
+              <ClickOpen
+                open={open}
+                onOpen={handleOpen}
+                onClose={handleClose}
+              />
+            )}
           </div>
-          <div className="flex flex-row">
-            <div class="basis-1/4">English</div>
-            <div class="basis-1/4">Dec,2023</div>
-          </div>
-        </div>
-      )}
-      <br></br>
-      <p>Add Additional</p>
-      <p>
-        _________________________________________________________________________________________________________________
-      </p>
+        </Drawer>
+      </div>
     </div>
   );
 };
