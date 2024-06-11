@@ -3,8 +3,9 @@ import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
 import { Drawer, Summary } from "@churchofjesuschrist/eden-drawer";
 import ClickOpen from "./ClickOpen";
 import SubscriptionList from "./SubscriptionList";
+import Expired from "./Expired";
 
-const Active = ({ title, data, filterType }) => {
+const Active = ({ title, data }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -24,8 +25,8 @@ const Active = ({ title, data, filterType }) => {
           </Summary>
 
           <Divider inset />
-          <SubscriptionList subscriptions={data} filterType={filterType} />
-
+          <SubscriptionList subscriptions={data} />
+          <Expired expiredSubscriptions={data} />
           <div>
             {ClickOpen && (
               <ClickOpen

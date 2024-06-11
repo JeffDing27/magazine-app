@@ -1,11 +1,11 @@
 import React from "react";
 import Magazine from "./Magazine";
 
-const SubscriptionList = ({ subscriptions }) => {
+const SubscriptionList = ({ expiredSubscriptions }) => {
   return (
     <div>
-      {subscriptions.map((element) =>
-        element.active.map((element2) => (
+      {expiredSubscriptions.map((element) =>
+        element.expired.map((element2) => (
           <Magazine
             Name={element.type}
             ExpiresText="Expires"

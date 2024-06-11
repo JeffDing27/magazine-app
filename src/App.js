@@ -10,7 +10,6 @@ import Stack from "@churchofjesuschrist/eden-stack";
 import Type from "./Components/Type";
 import { Checkbox } from "@churchofjesuschrist/eden-form-parts";
 import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
-import Magazine from "./Components/Magazine";
 
 export const StringContext = React.createContext();
 
@@ -44,6 +43,7 @@ let pageData = {
     },
   ],
   emailSubscriptions: [
+    { type: "Magazine", text: "Text", email: "Email" },
     { type: "Liahona", text: true, email: false },
     { type: "YA Weekly", text: true, email: true },
     { type: "For the Strength of Youth", text: false, email: true },
@@ -108,7 +108,9 @@ let initialState = {
   SubscriptionInfo: "Subscription Information",
   Address: "Shipping Address",
   Street: "55-600 Naniloa Loop",
-  City: "Laie, HI 96762",
+  City: "Laie",
+  State: "HI",
+  Zip: "96762",
   Select_language: "Select Language",
   Language: "Select Language",
   English: "English",
@@ -194,6 +196,38 @@ function App() {
     },
   ];
 
+  const activeLiahona = pageData.magazinesSubscriptions.filter(
+    (element) => element.type === "Liahona"
+  );
+
+  const activeLiahonaGCOnly = pageData.magazinesSubscriptions.filter(
+    (element) => element.type === "LiahonaGCOnly"
+  );
+
+  const expiredFriend = pageData.magazinesSubscriptions.filter(
+    (element) => element.type === "Friend"
+  );
+
+  const typeLiahona = pageData.emailSubscriptions.filter(
+    (element) => element.type === "Liahona"
+  );
+
+  const typeYaWeekly = pageData.emailSubscriptions.filter(
+    (element) => element.type === "YA Weekly"
+  );
+
+  const typeStrengthOfYouth = pageData.emailSubscriptions.filter(
+    (element) => element.type === "For the Strength of Youth"
+  );
+
+  const typeFriend = pageData.emailSubscriptions.filter(
+    (element) => element.type === "Friend"
+  );
+
+  const typeMagazine = pageData.emailSubscriptions.filter(
+    (element) => element.type === "Magazine"
+  );
+
   return (
     <PageDataContext.Provider value={pageData}>
       <StringContext.Provider value={initialState}>
@@ -215,11 +249,7 @@ function App() {
             imageSrc={"images/Liahona.jpeg"}
             message={initialState.Magazine_Description}
           />
-          <Active
-            title={initialState.Active_Title}
-            data={pageData.magazinesSubscriptions}
-            filterType="Liahona"
-          />
+          <Active title={initialState.Active_Title} data={activeLiahona} />
 
           <Liahona
             title={initialState.Magazine2}
@@ -229,48 +259,48 @@ function App() {
 
           <Active
             title={initialState.Active_Title}
-            data={pageData.magazinesSubscriptions}
-            filterType={"LiahonaGCOnly"}
+            data={activeLiahonaGCOnly}
           />
-          <Active
-            title={initialState.Active_Title3}
-            data={pageData.magazinesSubscriptions}
-            filterType={"Friend"}
-          />
+          <Active title={initialState.Active_Title3} data={expiredFriend} />
 
           <Header
             title={initialState.Title2}
             message={initialState.HeaderInfo1}
           />
           <Header message={initialState.HeaderInfo2} />
-
+          <Type emailInfo={typeMagazine} Text="Text" Email="Email" />
           <Type
-            Magazine={initialState.Magazine_type2}
-            Text={<Checkbox />}
-            Email={<Checkbox />}
+            emailInfo={typeLiahona}
+            Text={<Checkbox checked={true} />}
+            Email={<Checkbox checked={false} />}
           />
           <Divider inset />
           <Type
-            Magazine={initialState.Magazine_type3}
-            Text={<Checkbox />}
-            Email={<Checkbox />}
+            emailInfo={typeYaWeekly}
+            Text={<Checkbox checked={true} />}
+            Email={<Checkbox checked={true} />}
           />
           <Divider inset />
           <Type
-            Magazine={initialState.Magazine_type4}
-            Text={<Checkbox />}
-            Email={<Checkbox />}
+            emailInfo={typeStrengthOfYouth}
+            Text={<Checkbox checked={false} />}
+            Email={<Checkbox checked={true} />}
           />
           <Divider inset />
           <Type
-            Magazine={initialState.Magazine_type5}
-            Text={<Checkbox />}
-            Email={<Checkbox />}
+            emailInfo={typeFriend}
+            Text={<Checkbox checked={false} />}
+            Email={<Checkbox checked={false} />}
           />
           <Divider inset />
 
           <SubscriptionInfo SubscriptionInfo={initialState.SubscriptionInfo} />
-          <Address Street={initialState.Street} City={initialState.City} />
+          <Address
+            street={pageData.address.street}
+            city={pageData.address.city}
+            state={pageData.address.state}
+            zip={pageData.address.zip}
+          />
           <Language />
         </Stack>
       </StringContext.Provider>

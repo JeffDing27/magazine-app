@@ -29,8 +29,9 @@ const EmailWrapper = styled("div")`
   flex-basis: 50%;
 `;
 
-const Address = ({ Street, City }) => {
+const Address = ({ street, city, state, zip }) => {
   const { Address } = useContext(StringContext);
+
   return (
     <FlexRow>
       <FlexBasis25>
@@ -46,8 +47,10 @@ const Address = ({ Street, City }) => {
             />
           </HeaderStyleFlex>
 
-          <div>{Street}</div>
-          <div>{City}</div>
+          <div>{street}</div>
+          <div>
+            {city}, {state} {zip}
+          </div>
         </AddressWrapper>
       </FlexBasis25>
 

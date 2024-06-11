@@ -31,10 +31,10 @@ const Email = () => {
         <FontWeight>{value.Email_Renewel}</FontWeight>
         <Tooltip />
       </FlexNameIcon>
-      <p>{value.Email_Renewel_Description}.</p>
+      <p>{value.Email_Renewel_Description}</p>
 
       <FlexMessageCheckbox>
-        <Checkbox />
+        <Checkbox checked={false} />
         <MarginLeft>{value.Email_Checkbox}</MarginLeft>
       </FlexMessageCheckbox>
     </div>

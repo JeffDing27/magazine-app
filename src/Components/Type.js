@@ -29,17 +29,26 @@ const FlexBasisEmail = styled("div")`
   flex-basis: 25%;
 `;
 
-const Type = ({ Magazine, Text, Email }) => {
+const Type = ({ Magazine, Text, Email, emailInfo }) => {
   return (
-    <MarginLeftWrapper>
-      <FlexRow>
-        <FlexBasisMeg>{Magazine}</FlexBasisMeg>
-        <FlexWrapper>
-          <FlexBasisText>{Text}</FlexBasisText>
-          <FlexBasisEmail>{Email}</FlexBasisEmail>
-        </FlexWrapper>
-      </FlexRow>
-    </MarginLeftWrapper>
+    <div>
+      {emailInfo.map((element) => (
+        <MarginLeftWrapper>
+          <FlexRow>
+            <FlexBasisMeg>{(Magazine = element.type)}</FlexBasisMeg>
+            <FlexWrapper>
+              <label>
+                <FlexBasisText>{Text}</FlexBasisText>
+              </label>
+              <label>
+                <FlexBasisEmail>{Email}</FlexBasisEmail>
+              </label>
+            </FlexWrapper>
+          </FlexRow>
+        </MarginLeftWrapper>
+      ))}
+    </div>
   );
 };
+
 export default Type;
