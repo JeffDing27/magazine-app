@@ -244,10 +244,11 @@ function App() {
             header="Magazine"
             emailheader="Email"
           />
+
           {pageData.emailSubscriptions.map((subscription) => {
             return <MagazineSubscription magazineSubscription={subscription} />;
           })}
-          <Divider inset />
+
           <PageHeader title={initialState.Title3} titleSize="25px" />
           <ContactInfo
             street={pageData.address.street}

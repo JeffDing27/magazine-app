@@ -59,6 +59,7 @@ const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
           </FlexWrapper>
         </FlexRow>
       </MarginLeftWrapper>
+      <Divider />
     </div>
   );
 };

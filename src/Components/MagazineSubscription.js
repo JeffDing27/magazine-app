@@ -2,7 +2,6 @@ import React from "react";
 import Type from "./Type";
 import { useContext } from "react";
 import { StringContext } from "../App";
-
 import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
 
 const MagazineSubscription = (props) => {
