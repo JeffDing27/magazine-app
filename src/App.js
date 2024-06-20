@@ -1,62 +1,17 @@
 import React from "react";
 import "./App.css";
-import Liahona from "./Components/Liahona";
-import Header from "./Components/Header";
-import SubscriptionInfo from "./Components/SubscriptionInfo";
-import Address from "./Components/Address";
+import ContactInfo from "./Components/ContactInfo";
 import Language from "./Components/Language";
-import Active from "./Components/Active";
 import Stack from "@churchofjesuschrist/eden-stack";
-import Type from "./Components/Type";
-import { Checkbox } from "@churchofjesuschrist/eden-form-parts";
 import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
+import MagazineOption from "./Components/MagazineOption";
+import MagazineSubscription from "./Components/MagazineSubscription";
+import PageHeader from "./Components/PageHeader";
+import styled from "styled-components";
 
 export const StringContext = React.createContext();
 
 export const PageDataContext = React.createContext();
-
-let pageData = {
-  magazinesSubscriptions: [
-    {
-      type: "Liahona",
-      subscribed: true,
-      active: [
-        { lang: "eng", expireDate: "2023-12-01", quantity: 1 },
-        { lang: "spa", expireDate: "2024-11-01", quantity: 1 },
-      ],
-      expired: [],
-    },
-    {
-      type: "LiahonaGCOnly",
-      subscribed: true,
-      active: [{ lang: "eng", expireDate: "2023-11-01", quantity: 2 }],
-      expired: [],
-    },
-    {
-      type: "Friend",
-      subscribed: true,
-      active: [],
-      expired: [
-        { lang: "spa", expireDate: "2022-11-01", quantity: 2 },
-        { lang: "spa", expireDate: "2022-09-01", quantity: 2 },
-      ],
-    },
-  ],
-  emailSubscriptions: [
-    { type: "Magazine", text: "Text", email: "Email" },
-    { type: "Liahona", text: true, email: false },
-    { type: "YA Weekly", text: true, email: true },
-    { type: "For the Strength of Youth", text: false, email: true },
-    { type: "Friend", text: false, email: false },
-  ],
-  address: {
-    street: "50 E North Temple",
-    city: "Salt Lake City",
-    state: "UT",
-    zip: "84150",
-  },
-  emailReminders: false,
-};
 
 let initialState = {
   HeaderInfo:
@@ -66,6 +21,7 @@ let initialState = {
   HeaderInfo2: "Select one or more boxes below to subscribe",
   Title: "Magazine Subscriptions",
   Title2: "Notifiations for Online Magazines",
+  Title3: "Subscription Information",
   Magazine: "Liahona",
   Magazine2: "Liahona General Conference Issues (ONLY)",
   Magazine_Description:
@@ -156,77 +112,102 @@ let initialState = {
   Email_Checkbox: "Please send me an email reminder",
 };
 
+let pageData = {
+  magazinesSubscriptions: [
+    {
+      type: "Liahona",
+      subscribed: true,
+      active: [
+        { lang: "eng", expireDate: "2023-12-01", quantity: 1 },
+        { lang: "spa", expireDate: "2024-11-01", quantity: 1 },
+      ],
+      expired: [],
+      imageSrc: "images/Liahona.jpeg",
+      title: "Liahona",
+      message: initialState.Magazine_Description,
+    },
+    {
+      type: "LiahonaGCOnly",
+      subscribed: true,
+      active: [{ lang: "eng", expireDate: "2023-11-01", quantity: 2 }],
+      expired: [],
+      imageSrc: "images/Liahona2.jpeg",
+      title: "Liahona General Conference",
+      message: initialState.Magazine_Description2,
+    },
+    {
+      type: "Friend",
+      subscribed: false,
+      active: [],
+      expired: [
+        { lang: "spa", expireDate: "2022-11-01", quantity: 2 },
+        { lang: "spa", expireDate: "2022-09-01", quantity: 2 },
+      ],
+      imageSrc: "images/Liahona.jpeg",
+      title: "Friend",
+      message: initialState.Magazine_Description,
+    },
+  ],
+  emailSubscriptions: [
+    // { type: "Magazine", text: "Text", email: "Email" },
+    { type: "Liahona", text: true, email: false },
+    { type: "YA Weekly", text: true, email: true },
+    { type: "For the Strength of Youth", text: false, email: true },
+    { type: "Friend", text: false, email: false },
+  ],
+  address: {
+    street: "50 E North Temple",
+    city: "Salt Lake City",
+    state: "UT",
+    zip: "84150",
+  },
+  emailReminders: false,
+};
+
+const TextMessage = styled.div`
+  font-size: 1rem;
+  margin-left: 0.75rem;
+`;
+
 function App() {
-  const Active1Data = [
-    {
-      name: "Liahona",
-      date: "Dec,2023",
-      language: "English",
-      status: "Expires",
-    },
-    {
-      name: "Liahona",
-      date: "Nov,2024",
-      language: "Spanish",
-      status: "Expires",
-    },
-  ];
+  // const Active1Data = [
+  //   {
+  //     name: "Liahona",
+  //     date: "Dec,2023",
+  //     language: "English",
+  //     status: "Expires",
+  //   },
+  //   {
+  //     name: "Liahona",
+  //     date: "Nov,2024",
+  //     language: "Spanish",
+  //     status: "Expires",
+  //   },
+  // ];
 
-  const Active2Data = [
-    {
-      name: "Liahona-GCI",
-      date: "Nov,2023",
-      language: "English x2",
-      status: "Expires",
-    },
-  ];
+  // const Active2Data = [
+  //   {
+  //     name: "Liahona-GCI",
+  //     date: "Nov,2023",
+  //     language: "English x2",
+  //     status: "Expires",
+  //   },
+  // ];
 
-  const ExpiredData = [
-    {
-      name: "Friend",
-      date: "Nov,2022",
-      language: "Spanish x2",
-      status: "Expired",
-    },
-    {
-      name: "Friend",
-      date: "Sept,2022",
-      language: "Spanish",
-      status: "Expired",
-    },
-  ];
-
-  const activeLiahona = pageData.magazinesSubscriptions.filter(
-    (element) => element.type === "Liahona"
-  );
-
-  const activeLiahonaGCOnly = pageData.magazinesSubscriptions.filter(
-    (element) => element.type === "LiahonaGCOnly"
-  );
-
-  const expiredFriend = pageData.magazinesSubscriptions.filter(
-    (element) => element.type === "Friend"
-  );
-
-  const typeLiahona = pageData.emailSubscriptions.filter(
-    (element) => element.type === "Liahona"
-  );
-
-  const typeYaWeekly = pageData.emailSubscriptions.filter(
-    (element) => element.type === "YA Weekly"
-  );
-
-  const typeStrengthOfYouth = pageData.emailSubscriptions.filter(
-    (element) => element.type === "For the Strength of Youth"
-  );
-
-  const typeFriend = pageData.emailSubscriptions.filter(
-    (element) => element.type === "Friend"
-  );
-
-  const typeMagazine = pageData.emailSubscriptions.filter(
-    (element) => element.type === "Magazine"
-  );
+  // const ExpiredData = [
+  //   {
+  //     name: "Friend",
+  //     date: "Nov,2022",
+  //     language: "Spanish x2",
+  //     status: "Expired",
+  //   },
+  //   {
+  //     name: "Friend",
+  //     date: "Sept,2022",
+  //     language: "Spanish",
+  //     status: "Expired",
+  //   },
+  // ];
 
   return (
     <PageDataContext.Provider value={pageData}>
@@ -237,65 +218,38 @@ function App() {
             maxWidth: "840px",
           }}
         >
-          <Header
-            showMessage={true}
+          <PageHeader
             title={initialState.Title}
             message={initialState.HeaderInfo}
           />
-
-          <Liahona
-            title={initialState.Magazine}
-            showInfo={true}
-            imageSrc={"images/Liahona.jpeg"}
-            message={initialState.Magazine_Description}
-          />
-          <Active title={initialState.Active_Title} data={activeLiahona} />
-
-          <Liahona
-            title={initialState.Magazine2}
-            imageSrc={"images/Liahona2.jpeg"}
-            message={initialState.Magazine_Description2}
-          />
-
-          <Active
-            title={initialState.Active_Title}
-            data={activeLiahonaGCOnly}
-          />
-          <Active title={initialState.Active_Title3} data={expiredFriend} />
-
-          <Header
+          {pageData.magazinesSubscriptions.map((subscription) => {
+            return (
+              <MagazineOption
+                magazineSubscriptionData={subscription}
+                title={subscription.title}
+                imageSrc={subscription.imageSrc}
+                message={subscription.message}
+                subscribed={subscription.subscribed}
+              />
+            );
+          })}
+          <PageHeader
             title={initialState.Title2}
             message={initialState.HeaderInfo1}
+            fontWeight="Lighter"
           />
-          <Header message={initialState.HeaderInfo2} />
-          <Type emailInfo={typeMagazine} Text="Text" Email="Email" />
-          <Type
-            emailInfo={typeLiahona}
-            Text={<Checkbox checked={true} />}
-            Email={<Checkbox checked={false} />}
+          <TextMessage>Select one or more boxes below to subscribe</TextMessage>
+          <MagazineSubscription
+            textheader="Text"
+            header="Magazine"
+            emailheader="Email"
           />
+          {pageData.emailSubscriptions.map((subscription) => {
+            return <MagazineSubscription magazineSubscription={subscription} />;
+          })}
           <Divider inset />
-          <Type
-            emailInfo={typeYaWeekly}
-            Text={<Checkbox checked={true} />}
-            Email={<Checkbox checked={true} />}
-          />
-          <Divider inset />
-          <Type
-            emailInfo={typeStrengthOfYouth}
-            Text={<Checkbox checked={false} />}
-            Email={<Checkbox checked={true} />}
-          />
-          <Divider inset />
-          <Type
-            emailInfo={typeFriend}
-            Text={<Checkbox checked={false} />}
-            Email={<Checkbox checked={false} />}
-          />
-          <Divider inset />
-
-          <SubscriptionInfo SubscriptionInfo={initialState.SubscriptionInfo} />
-          <Address
+          <PageHeader title={initialState.Title3} titleSize="25px" />
+          <ContactInfo
             street={pageData.address.street}
             city={pageData.address.city}
             state={pageData.address.state}

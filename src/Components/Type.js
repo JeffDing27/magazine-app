@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Checkbox } from "@churchofjesuschrist/eden-form-parts";
+import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
 
 const MarginLeftWrapper = styled("div")`
   margin-left: 0.75rem;
@@ -29,24 +31,34 @@ const FlexBasisEmail = styled("div")`
   flex-basis: 25%;
 `;
 
-const Type = ({ Magazine, Text, Email, emailInfo }) => {
+const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
   return (
     <div>
-      {emailInfo.map((element) => (
-        <MarginLeftWrapper>
-          <FlexRow>
-            <FlexBasisMeg>{(Magazine = element.type)}</FlexBasisMeg>
-            <FlexWrapper>
-              <label>
-                <FlexBasisText>{Text}</FlexBasisText>
-              </label>
-              <label>
-                <FlexBasisEmail>{Email}</FlexBasisEmail>
-              </label>
-            </FlexWrapper>
-          </FlexRow>
-        </MarginLeftWrapper>
-      ))}
+      <MarginLeftWrapper>
+        <FlexRow>
+          <FlexBasisMeg>
+            {Magazine}
+            {header}
+          </FlexBasisMeg>
+
+          <FlexWrapper>
+            <label>
+              <FlexBasisText>
+                {Text !== undefined && <Checkbox checked={Text}></Checkbox>}
+
+                {textheader}
+              </FlexBasisText>
+            </label>
+
+            <label>
+              <FlexBasisEmail>
+                {Email !== undefined && <Checkbox checked={Email}></Checkbox>}
+                {emailheader}
+              </FlexBasisEmail>
+            </label>
+          </FlexWrapper>
+        </FlexRow>
+      </MarginLeftWrapper>
     </div>
   );
 };

@@ -1,21 +1,20 @@
 import React from "react";
 import Magazine from "./Magazine";
 
-const SubscriptionList = ({ subscriptions }) => {
+const SubscriptionList = ({ subscriptions, type, status, subscribed }) => {
   return (
     <div>
-      {subscriptions.map((element) =>
-        element.active.map((element2) => (
-          <Magazine
-            Name={element.type}
-            ExpiresText="Expires"
-            language={element2.lang === "eng" ? "English" : "Spanish"}
-            dateText={element2.expireDate}
-            subscribeText="Subscribe"
-            unsubscribeText="Unsubscribe"
-          />
-        ))
-      )}
+      {subscriptions.map((element) => (
+        <Magazine
+          Name={type}
+          ExpiresText={status}
+          language={element.lang === "eng" ? "English" : "Spanish"}
+          dateText={element.expireDate}
+          subscribeText="Subscribe"
+          unsubscribeText="Unsubscribe"
+          subscribed={subscribed}
+        />
+      ))}
     </div>
   );
 };

@@ -5,6 +5,8 @@ import Image from "./Image";
 import styled from "styled-components";
 import { useContext } from "react";
 import { StringContext } from "../App";
+import { useState } from "react";
+import { Ghost } from "@churchofjesuschrist/eden-buttons";
 
 const FlexRow = styled("div")`
   display: flex;
@@ -33,14 +35,19 @@ const TitleStyles = styled("div")`
   font-weight: bold;
 `;
 
-const Liahona = ({
-  message,
-  title,
+const Liahona = ({ message, title, imageSrc }) => {
+  const [subscribed, setSubscribed] = useState(false);
 
-  imageSrc,
-}) => {
+  const handleSubscribe = () => {
+    setSubscribed(true);
+  };
+
+  const handleUnsubscribe = () => {
+    setSubscribed(false);
+  };
   //showInfo as a constant inside the component, which means it will always be true.
   const value = useContext(StringContext);
+  console.log("Hello", imageSrc);
   return (
     <FlexRow>
       <FlexBasisImage>
@@ -61,7 +68,11 @@ const Liahona = ({
           }}
         />
         <div className="">
-          <p>{value.Magazine_Subscription}</p>
+          <Ghost>
+            <button onClick={subscribed ? handleUnsubscribe : handleSubscribe}>
+              {subscribed ? "Unsubscribe" : "Subscribe"}
+            </button>
+          </Ghost>
         </div>
       </FlexBasisSubscribed>
     </FlexRow>

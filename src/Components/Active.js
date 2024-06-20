@@ -5,7 +5,7 @@ import ClickOpen from "./ClickOpen";
 import SubscriptionList from "./SubscriptionList";
 import Expired from "./Expired";
 
-const Active = ({ title, data }) => {
+const Active = ({ title, data, type, status, subscribed }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -15,7 +15,7 @@ const Active = ({ title, data }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log(data);
   return (
     <div className="">
       <div>
@@ -25,8 +25,13 @@ const Active = ({ title, data }) => {
           </Summary>
 
           <Divider inset />
-          <SubscriptionList subscriptions={data} />
-          <Expired expiredSubscriptions={data} />
+          <SubscriptionList
+            subscriptions={data}
+            type={type}
+            status={status}
+            subscribed={subscribed}
+          />
+          {/* <Expired expiredSubscriptions={data} /> */}
           <div>
             {ClickOpen && (
               <ClickOpen
