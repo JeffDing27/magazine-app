@@ -22,6 +22,7 @@ const Magazine = ({
   ExpiresText,
   language,
   dateText,
+
   onSubscribe,
   onUnsubscribe,
   subscribeText,
@@ -44,6 +45,24 @@ const Magazine = ({
       onUnsubscribe();
     }
   };
+  function formatDate(dateArrayFormatted) {
+    const currentDate = new Date(dateArrayFormatted);
+    const options = { month: "short", year: "numeric" };
+    return new Intl.DateTimeFormat("en-US", options).format(currentDate);
+  }
+
+  function checkDate(date) {
+    let dateArray = date.split("-");
+    let dateArrayFormatted = [];
+    for (let i = 0; i < dateArray.length; i++) {
+      let number = parseInt(dateArray[i], 10);
+      dateArrayFormatted.push(number);
+    }
+
+    return dateArrayFormatted.join("-");
+  }
+
+  const formattedDate = formatDate(checkDate(dateText));
 
   return (
     <div>
@@ -58,7 +77,7 @@ const Magazine = ({
       </FlexRow>
       <FlexRow1>
         <FlexPosition>{language}</FlexPosition>
-        <FlexPosition>{dateText}</FlexPosition>
+        <FlexPosition>{formattedDate}</FlexPosition>
       </FlexRow1>
     </div>
   );
