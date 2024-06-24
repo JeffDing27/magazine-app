@@ -12,7 +12,7 @@ const SubscriptionList = ({ subscriptions, type, status, subscribed }) => {
           dateText={element.expireDate}
           subscribeText="Subscribe"
           unsubscribeText="Unsubscribe"
-          subscribed={subscribed}
+          onClick={subscribed}
         />
       ))}
     </div>

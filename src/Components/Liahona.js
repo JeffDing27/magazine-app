@@ -60,13 +60,15 @@ const Liahona = ({ message, title, imageSrc }) => {
         <p>{message}</p>
       </FlexBasisPostion50>
       <FlexBasisSubscribed>
-        <Icon
-          Icon={CircleSelectedFilled}
-          isThemed
-          theme={{
-            primaryColor: "#6db344",
-          }}
-        />
+        {subscribed && (
+          <Icon
+            Icon={CircleSelectedFilled}
+            isThemed
+            theme={{
+              primaryColor: "#6db344",
+            }}
+          />
+        )}
         <div className="">
           <Ghost>
             <button onClick={subscribed ? handleUnsubscribe : handleSubscribe}>

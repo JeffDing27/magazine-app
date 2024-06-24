@@ -23,8 +23,6 @@ const Magazine = ({
   language,
   dateText,
 
-  onSubscribe,
-  onUnsubscribe,
   subscribeText,
   unsubscribeText,
 }) => {
@@ -34,16 +32,10 @@ const Magazine = ({
 
   const handleSubscribe = () => {
     setSubscribed(true);
-    if (onSubscribe) {
-      onSubscribe();
-    }
   };
 
   const handleUnsubscribe = () => {
     setSubscribed(false);
-    if (onUnsubscribe) {
-      onUnsubscribe();
-    }
   };
   function formatDate(dateArrayFormatted) {
     const currentDate = new Date(dateArrayFormatted);
@@ -51,8 +43,14 @@ const Magazine = ({
     const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
       currentDate
     );
-    const [month, year] = formattedDate.split(" ");
-    return `${month}, ${year}`;
+    const parts = formattedDate.split(" ");
+    const month = parts[0];
+    const year = parts[1];
+
+    return month + ", " + year;
+    // with template literal:
+    // const [month, year] = formattedDate.split(" ");
+    // return `${month}, ${year}`; //Template literals are enclosed by backticks and whatever is inside `${}` is evaluated and inserted into the string.
   }
 
   function checkDate(date) {
@@ -70,19 +68,24 @@ const Magazine = ({
 
   return (
     <div>
-      <FlexRow>
-        <FlexPosition>{Name}</FlexPosition>
-        <FlexPosition>{ExpiresText}</FlexPosition>
-        <FlexPosition>
-          <button onClick={subscribed ? handleUnsubscribe : handleSubscribe}>
-            {subscribed ? unsubscribeText : subscribeText}
-          </button>
-        </FlexPosition>
-      </FlexRow>
-      <FlexRow1>
-        <FlexPosition>{language}</FlexPosition>
-        <FlexPosition>{formattedDate}</FlexPosition>
-      </FlexRow1>
+      <div>
+        <FlexRow>
+          <FlexPosition>{Name}</FlexPosition>
+          <FlexPosition>{ExpiresText}</FlexPosition>
+          <FlexPosition>
+            {!subscribed && (
+              <button onClick={handleSubscribe}>{subscribeText}</button>
+            )}
+            {subscribed && (
+              <button onClick={handleUnsubscribe}>{unsubscribeText}</button>
+            )}
+          </FlexPosition>
+        </FlexRow>
+        <FlexRow1>
+          <FlexPosition>{language}</FlexPosition>
+          <FlexPosition>{formattedDate}</FlexPosition>
+        </FlexRow1>
+      </div>
     </div>
   );
 };
