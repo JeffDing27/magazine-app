@@ -48,7 +48,11 @@ const Magazine = ({
   function formatDate(dateArrayFormatted) {
     const currentDate = new Date(dateArrayFormatted);
     const options = { month: "short", year: "numeric" };
-    return new Intl.DateTimeFormat("en-US", options).format(currentDate);
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      currentDate
+    );
+    const [month, year] = formattedDate.split(" ");
+    return `${month}, ${year}`;
   }
 
   function checkDate(date) {
