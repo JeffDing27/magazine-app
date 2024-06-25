@@ -229,7 +229,6 @@ function App() {
                 title={subscription.title}
                 imageSrc={subscription.imageSrc}
                 message={subscription.message}
-                subscribed={subscription.subscribed}
               />
             );
           })}

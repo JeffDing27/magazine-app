@@ -1,7 +1,7 @@
 import React from "react";
 import Magazine from "./Magazine";
 
-const SubscriptionList = ({ subscriptions, type, status, subscribed }) => {
+const SubscriptionList = ({ subscriptions, type, status }) => {
   return (
     <div>
       {subscriptions.map((element) => (
@@ -12,7 +12,6 @@ const SubscriptionList = ({ subscriptions, type, status, subscribed }) => {
           dateText={element.expireDate}
           subscribeText="Subscribe"
           unsubscribeText="Unsubscribe"
-          onClick={subscribed}
         />
       ))}
     </div>

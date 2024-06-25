@@ -35,16 +35,14 @@ const TitleStyles = styled("div")`
   font-weight: bold;
 `;
 
-const Liahona = ({ message, title, imageSrc }) => {
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = () => {
-    setSubscribed(true);
-  };
-
-  const handleUnsubscribe = () => {
-    setSubscribed(false);
-  };
+const Liahona = ({
+  message,
+  title,
+  imageSrc,
+  subscribed,
+  onSubscribe,
+  onSubscribed,
+}) => {
   //showInfo as a constant inside the component, which means it will always be true.
   const value = useContext(StringContext);
   console.log("Hello", imageSrc);
@@ -71,8 +69,8 @@ const Liahona = ({ message, title, imageSrc }) => {
         )}
         <div className="">
           <Ghost>
-            <button onClick={subscribed ? handleUnsubscribe : handleSubscribe}>
-              {subscribed ? "Unsubscribe" : "Subscribe"}
+            <button onClick={subscribed ? onSubscribed : onSubscribe}>
+              {subscribed ? "Subscribed" : "Subscribe"}
             </button>
           </Ghost>
         </div>
