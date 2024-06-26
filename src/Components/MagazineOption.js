@@ -32,9 +32,7 @@ const MagazineOption = (props) => {
         onSubscribe={handleSubscribe}
         onSubscribed={handleUnsubscribe}
       />
-
-      {magazineSubscriptionData.active &&
-      magazineSubscriptionData.active.length > 0 ? (
+      {magazineSubscriptionData.active.length > 0 && (
         <Active
           // title={strings.Active_Title}
           title="Active"
@@ -42,7 +40,9 @@ const MagazineOption = (props) => {
           type={magazineSubscriptionData.type}
           status="Expires"
         />
-      ) : (
+      )}
+
+      {magazineSubscriptionData.expired.length > 0 && (
         <Active
           // title={strings.Active_Title3}
           title="Expired"

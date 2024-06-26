@@ -121,7 +121,7 @@ let pageData = {
         { lang: "eng", expireDate: "2023-12-01", quantity: 1 },
         { lang: "spa", expireDate: "2024-11-01", quantity: 1 },
       ],
-      expired: [],
+      expired: [{ lang: "eng", expireDate: "2023-12-01", quantity: 1 }],
       imageSrc: "images/Liahona.jpeg",
       title: "Liahona",
       message: initialState.Magazine_Description,
