@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Checkbox } from "@churchofjesuschrist/eden-form-parts";
 import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
+import { useState } from "react";
 
 const MarginLeftWrapper = styled("div")`
   margin-left: 0.75rem;
@@ -32,6 +33,17 @@ const FlexBasisEmail = styled("div")`
 `;
 
 const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
+  const [isTextChecked, setTextChecked] = useState(Text || false);
+  const [isEmailChecked, setEmailChecked] = useState(Email || false);
+
+  const handleTextChange = () => {
+    setTextChecked(!isTextChecked);
+  };
+
+  const handleEmailChange = () => {
+    setEmailChecked(!isEmailChecked);
+  };
+
   return (
     <div>
       <MarginLeftWrapper>
@@ -44,7 +56,12 @@ const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
           <FlexWrapper>
             <label>
               <FlexBasisText>
-                {Text !== undefined && <Checkbox checked={Text}></Checkbox>}
+                {Text !== undefined && (
+                  <Checkbox
+                    checked={isTextChecked}
+                    onChange={handleTextChange}
+                  />
+                )}
 
                 {textheader}
               </FlexBasisText>
@@ -52,7 +69,12 @@ const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
 
             <label>
               <FlexBasisEmail>
-                {Email !== undefined && <Checkbox checked={Email}></Checkbox>}
+                {Email !== undefined && (
+                  <Checkbox
+                    checked={isEmailChecked}
+                    onChange={handleEmailChange}
+                  />
+                )}
                 {emailheader}
               </FlexBasisEmail>
             </label>

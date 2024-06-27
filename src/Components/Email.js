@@ -4,6 +4,7 @@ import { Tooltip } from "@churchofjesuschrist/eden-form-parts";
 import styled from "styled-components";
 import { useContext } from "react";
 import { StringContext } from "../App";
+import { useState } from "react";
 
 const FlexNameIcon = styled("div")`
   display: flex;
@@ -25,6 +26,13 @@ const MarginLeft = styled("div")`
 
 const Email = () => {
   const value = useContext(StringContext);
+
+  const [isEmailChecked, setEmailChecked] = useState(false);
+
+  const handleEmailChange = () => {
+    setEmailChecked(!isEmailChecked);
+  };
+
   return (
     <div className="">
       <FlexNameIcon>
@@ -34,7 +42,7 @@ const Email = () => {
       <p>{value.Email_Renewel_Description}</p>
 
       <FlexMessageCheckbox>
-        <Checkbox checked={false} />
+        <Checkbox checked={isEmailChecked} onChange={handleEmailChange} />
         <MarginLeft>{value.Email_Checkbox}</MarginLeft>
       </FlexMessageCheckbox>
     </div>
