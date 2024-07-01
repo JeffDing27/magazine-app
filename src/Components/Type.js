@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Checkbox } from "@churchofjesuschrist/eden-form-parts";
 import { Divider } from "@churchofjesuschrist/eden-vertical-modular-tile";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { StringContext, PageDataContext } from "../App";
 
 const MarginLeftWrapper = styled("div")`
   margin-left: 0.75rem;
@@ -43,7 +44,16 @@ const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
   const handleEmailChange = () => {
     setEmailChecked(!isEmailChecked);
   };
-
+  // const value = useContext(StringContext);
+  const { applicationData, setApplicationData } = useContext(PageDataContext);
+  const { emailSubscriptions } = applicationData;
+  const handleSubscriptionChange = (type) => {
+    emailSubscriptions.filter((subscription) => subscription.type === type);
+    setApplicationData({
+      ...applicationData,
+      emailSubscriptions: !emailSubscriptions,
+    });
+  };
   return (
     <div>
       <MarginLeftWrapper>

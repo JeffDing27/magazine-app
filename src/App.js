@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import ContactInfo from "./Components/ContactInfo";
 import Language from "./Components/Language";
@@ -208,9 +208,12 @@ function App() {
   //     status: "Expired",
   //   },
   // ];
+  const [applicationData, setApplicationData] = useState(pageData);
+
+  console.log("applicationData", applicationData);
 
   return (
-    <PageDataContext.Provider value={pageData}>
+    <PageDataContext.Provider value={{ applicationData, setApplicationData }}>
       <StringContext.Provider value={initialState}>
         <Stack
           style={{
@@ -244,7 +247,7 @@ function App() {
             emailheader="Email"
           />
 
-          {pageData.emailSubscriptions.map((subscription) => {
+          {applicationData.emailSubscriptions.map((subscription) => {
             return <MagazineSubscription magazineSubscription={subscription} />;
           })}
 

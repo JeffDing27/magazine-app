@@ -3,7 +3,7 @@ import { Checkbox } from "@churchofjesuschrist/eden-form-parts";
 import { Tooltip } from "@churchofjesuschrist/eden-form-parts";
 import styled from "styled-components";
 import { useContext } from "react";
-import { StringContext } from "../App";
+import { StringContext, PageDataContext } from "../App";
 import { useState } from "react";
 
 const FlexNameIcon = styled("div")`
@@ -26,11 +26,12 @@ const MarginLeft = styled("div")`
 
 const Email = () => {
   const value = useContext(StringContext);
-
-  const [isEmailChecked, setEmailChecked] = useState(false);
-
+  const { applicationData, setApplicationData } = useContext(PageDataContext);
+  // const [isEmailChecked, setEmailChecked] = useState(false);
+  const { emailReminders } = applicationData;
   const handleEmailChange = () => {
-    setEmailChecked(!isEmailChecked);
+    //   setEmailChecked(!isEmailChecked);
+    setApplicationData({ ...applicationData, emailReminders: !emailReminders });
   };
 
   return (
@@ -42,7 +43,7 @@ const Email = () => {
       <p>{value.Email_Renewel_Description}</p>
 
       <FlexMessageCheckbox>
-        <Checkbox checked={isEmailChecked} onChange={handleEmailChange} />
+        <Checkbox checked={emailReminders} onChange={handleEmailChange} />
         <MarginLeft>{value.Email_Checkbox}</MarginLeft>
       </FlexMessageCheckbox>
     </div>
