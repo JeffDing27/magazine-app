@@ -34,26 +34,40 @@ const FlexBasisEmail = styled("div")`
 `;
 
 const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
-  const [isTextChecked, setTextChecked] = useState(Text || false);
-  const [isEmailChecked, setEmailChecked] = useState(Email || false);
+  // const [isTextChecked, setTextChecked] = useState(Text || false);
+  // const [isEmailChecked, setEmailChecked] = useState(Email || false);
 
-  const handleTextChange = () => {
-    setTextChecked(!isTextChecked);
-  };
+  // const handleTextChange = () => {
+  //   setTextChecked(!isTextChecked);
+  // };
 
-  const handleEmailChange = () => {
-    setEmailChecked(!isEmailChecked);
-  };
+  // const handleEmailChange = () => {
+  //   setEmailChecked(!isEmailChecked);
+  // };
   // const value = useContext(StringContext);
   const { applicationData, setApplicationData } = useContext(PageDataContext);
   const { emailSubscriptions } = applicationData;
+
+  const subscriptionMagazine = emailSubscriptions.find(
+    (subscription) => subscription.type === Magazine
+  );
   const handleSubscriptionChange = (type) => {
-    emailSubscriptions.filter((subscription) => subscription.type === type);
+    const updatedSubscription = {
+      ...subscriptionMagazine,
+      [type]: !subscriptionMagazine[type],
+    };
+    const updatedEmailSubscriptions = emailSubscriptions.map((data) => {
+      if (data.type === Magazine) {
+        return updatedSubscription;
+      }
+      return data;
+    });
     setApplicationData({
       ...applicationData,
-      emailSubscriptions: !emailSubscriptions,
+      emailSubscriptions: updatedEmailSubscriptions,
     });
   };
+
   return (
     <div>
       <MarginLeftWrapper>
@@ -68,8 +82,8 @@ const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
               <FlexBasisText>
                 {Text !== undefined && (
                   <Checkbox
-                    checked={isTextChecked}
-                    onChange={handleTextChange}
+                    checked={subscriptionMagazine.text}
+                    onChange={() => handleSubscriptionChange("text")}
                   />
                 )}
 
@@ -81,8 +95,8 @@ const Type = ({ Magazine, Text, Email, header, textheader, emailheader }) => {
               <FlexBasisEmail>
                 {Email !== undefined && (
                   <Checkbox
-                    checked={isEmailChecked}
-                    onChange={handleEmailChange}
+                    checked={subscriptionMagazine.email}
+                    onChange={() => handleSubscriptionChange("email")}
                   />
                 )}
                 {emailheader}
