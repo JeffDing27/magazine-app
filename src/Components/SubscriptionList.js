@@ -12,6 +12,7 @@ const SubscriptionList = ({ subscriptions, type, status }) => {
           dateText={element.expireDate}
           subscribeText="Subscribe"
           unsubscribeText="Unsubscribe"
+          isActive={subscriptions}
         />
       ))}
     </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { useContext } from "react";
+import { PageDataContext } from "../App";
 
 const FlexRow = styled("div")`
   display: flex;
@@ -22,21 +24,38 @@ const Magazine = ({
   ExpiresText,
   language,
   dateText,
-
+  isActive,
   subscribeText,
   unsubscribeText,
 }) => {
   // Added equal sign and arrow function
+  const { applicationData, setApplicationData } = useContext(PageDataContext);
+  const { magazinesSubscriptions } = applicationData;
 
-  const [subscribed, setSubscribed] = useState(false);
+  const magazineType = magazinesSubscriptions.find(
+    (subscription) => subscription.type === Name
+  );
+  const subscribed = magazineType.subscribed;
 
-  const handleSubscribe = () => {
-    setSubscribed(true);
+  const handleSubscriptionChange = () => {
+    const updatedSubscription = {
+      ...magazineType,
+      subscribed: !magazineType.subscribed,
+    };
+
+    const updatedEmailSubscriptions = magazinesSubscriptions.map((data) => {
+      if (data.type === Name) {
+        return updatedSubscription;
+      }
+      return data;
+    });
+
+    setApplicationData({
+      ...applicationData,
+      magazinesSubscriptions: updatedEmailSubscriptions,
+    });
   };
 
-  const handleUnsubscribe = () => {
-    setSubscribed(false);
-  };
   function formatDate(dateArrayFormatted) {
     const currentDate = new Date(dateArrayFormatted);
     const options = { month: "short", year: "numeric" };
@@ -73,12 +92,9 @@ const Magazine = ({
           <FlexPosition>{Name}</FlexPosition>
           <FlexPosition>{ExpiresText}</FlexPosition>
           <FlexPosition>
-            {!subscribed && (
-              <button onClick={handleSubscribe}>{subscribeText}</button>
-            )}
-            {subscribed && (
-              <button onClick={handleUnsubscribe}>{unsubscribeText}</button>
-            )}
+            <button onClick={handleSubscriptionChange}>
+              {isActive ? unsubscribeText : subscribeText}
+            </button>
           </FlexPosition>
         </FlexRow>
         <FlexRow1>
