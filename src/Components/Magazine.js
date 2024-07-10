@@ -24,7 +24,7 @@ const Magazine = ({
   ExpiresText,
   language,
   dateText,
-  isActive,
+  magazineStatus,
   subscribeText,
   unsubscribeText,
 }) => {
@@ -93,7 +93,7 @@ const Magazine = ({
           <FlexPosition>{ExpiresText}</FlexPosition>
           <FlexPosition>
             <button onClick={handleSubscriptionChange}>
-              {isActive ? unsubscribeText : subscribeText}
+              {subscribed ? unsubscribeText : subscribeText}
             </button>
           </FlexPosition>
         </FlexRow>

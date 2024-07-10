@@ -1,7 +1,12 @@
 import React from "react";
 import Magazine from "./Magazine";
 
-const SubscriptionList = ({ subscriptions, type, status }) => {
+const SubscriptionList = ({
+  subscriptions,
+  type,
+  status,
+  magazineActiveExpireStatus,
+}) => {
   return (
     <div>
       {subscriptions.map((element) => (
@@ -12,7 +17,7 @@ const SubscriptionList = ({ subscriptions, type, status }) => {
           dateText={element.expireDate}
           subscribeText="Subscribe"
           unsubscribeText="Unsubscribe"
-          isActive={subscriptions}
+          magazineStatus={magazineActiveExpireStatus}
         />
       ))}
     </div>
