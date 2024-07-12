@@ -28,6 +28,7 @@ const Magazine = ({
   subscribeText,
   unsubscribeText,
 }) => {
+  console.log("hi", magazineStatus);
   // Added equal sign and arrow function
   const { applicationData, setApplicationData } = useContext(PageDataContext);
   const { magazinesSubscriptions } = applicationData;
@@ -35,24 +36,31 @@ const Magazine = ({
   const magazineType = magazinesSubscriptions.find(
     (subscription) => subscription.type === Name
   );
+
   const subscribed = magazineType.subscribed;
 
   const handleSubscriptionChange = () => {
+    const updatedArray = magazineType[magazineStatus].filter((sub) => {
+      const langMatch = sub.lang === language.slice(0, 3).toLowerCase();
+      const dateMatch = sub.expireDate === dateText;
+      return !(langMatch && dateMatch);
+    });
+    console.log(updatedArray);
     const updatedSubscription = {
       ...magazineType,
-      subscribed: !magazineType.subscribed,
+      [magazineStatus]: updatedArray,
     };
-
-    const updatedEmailSubscriptions = magazinesSubscriptions.map((data) => {
+    console.log(updatedSubscription);
+    const updatedSubscriptions = magazinesSubscriptions.map((data) => {
       if (data.type === Name) {
         return updatedSubscription;
       }
       return data;
     });
-
+    console.log(">>>", updatedSubscription);
     setApplicationData({
       ...applicationData,
-      magazinesSubscriptions: updatedEmailSubscriptions,
+      magazinesSubscriptions: updatedSubscriptions,
     });
   };
 

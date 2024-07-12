@@ -5,13 +5,7 @@ import { StringContext } from "../App";
 import { useState } from "react";
 
 const MagazineOption = (props) => {
-  const {
-    title,
-    imageSrc,
-    message,
-    magazineSubscriptionData,
-    magazineActiveExpireStatus,
-  } = props;
+  const { title, imageSrc, message, magazineSubscriptionData } = props;
   console.log("MagazineOption", imageSrc);
   console.log("magazineSubscriptionData", magazineSubscriptionData);
 
@@ -45,7 +39,7 @@ const MagazineOption = (props) => {
           data={magazineSubscriptionData.active}
           type={magazineSubscriptionData.type}
           status="Expires"
-          magazineActiveExpireStatus={magazineSubscriptionData.active}
+          magazineActiveExpireStatus={"active"}
         />
       )}
 
@@ -56,7 +50,7 @@ const MagazineOption = (props) => {
           data={magazineSubscriptionData.expired}
           type={magazineSubscriptionData.type}
           status="Expired"
-          magazineActiveExpireStatus={magazineSubscriptionData.expired}
+          magazineActiveExpireStatus={"expired"}
         />
       )}
     </>
